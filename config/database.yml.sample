@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: urban_outdoor_development
+test:
+  <<: *default
+  database: urban_outdoor_test
+production:
+  <<: *default
+  database: urban_outdoor_production
+  username: urban_outdoor
+  password: <%= ENV['URBAN_OUTDOOR_DATABASE_PASSWORD'] %>

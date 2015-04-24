@@ -1,0 +1,12 @@
+defaults: &defaults
+  aws_access_key: "YOURKEY"
+  aws_access_secret: "YOURSECRET" 
+  aws_region: "ap-southeast-1"
+  aws_sns_topic_head: ""
+  topic_arn: ""
+  endpoint_arn: ""
+  platform_credential: ""
+  device_token: ""
+  security_groups: "sg-XXXXXという感じの表示のものを入力"
+  keypair_name: "自分で作ったpemの名前を入力"
+  subnet_id: "subnet-xxxxx"

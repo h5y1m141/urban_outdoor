@@ -1,0 +1,13 @@
+/.bundle
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/log/*
+!/log/.keep
+/tmp
+/vendor/bundle
+/config/application.yml
+/config/database.yml
+
+# Ignore rbenv config.
+.rbenv-gemsets
+.ruby-version
