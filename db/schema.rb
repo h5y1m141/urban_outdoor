@@ -11,9 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150425023639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "items", force: :cascade do |t|
+    t.string   "title",          null: false
+    t.string   "url",            null: false
+    t.integer  "original_price"
+    t.boolean  "discounted"
+    t.integer  "discount_price"
+    t.text     "description"
+    t.string   "image"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "items", ["title"], name: "index_items_on_title", using: :btree
+
+  create_table "stocks", force: :cascade do |t|
+    t.integer  "item_id"
+    t.string   "color"
+    t.string   "size"
+    t.boolean  "exist"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "stocks", ["item_id"], name: "index_stocks_on_item_id", using: :btree
+
+  add_foreign_key "stocks", "items"
 end
