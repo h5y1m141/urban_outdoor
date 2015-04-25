@@ -3,6 +3,7 @@ FactoryGirl.define do
     sequence(:title) { |n| "title#{n}" }
     sequence(:url) { |n| "http://www.example.com/item/#{n}" }
     sequence(:description) {|n| "description#{n}"}
+    stocks { create_list :stock, 5 }
 
     trait :on_sale do
       discounted true
