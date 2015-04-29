@@ -4,6 +4,7 @@ FactoryGirl.define do
     sequence(:url) { |n| "http://www.example.com/item/#{n}" }
     sequence(:description) {|n| "description#{n}"}
     stocks { create_list :stock, 5 }
+    image { Rack::Test::UploadedFile.new(Rails.root.join('app','assets', 'images', 'sample.jpg')) }
 
     trait :on_sale do
       discounted true
