@@ -22,6 +22,7 @@ gem 'kaminari'
 # other
 gem 'settingslogic'
 gem 'aws-sdk'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'better_errors'
