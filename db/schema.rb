@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501075655) do
+ActiveRecord::Schema.define(version: 20150501085633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,22 @@ ActiveRecord::Schema.define(version: 20150501075655) do
   end
 
   add_index "brands", ["site_id"], name: "index_brands_on_site_id", using: :btree
+
+  create_table "item_favorites", force: :cascade do |t|
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.text     "comment"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "item_reviews", force: :cascade do |t|
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.text     "comment"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "items", force: :cascade do |t|
     t.string   "title",          null: false
