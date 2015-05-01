@@ -24,6 +24,7 @@ gem 'settingslogic'
 gem 'aws-sdk'
 gem 'carrierwave'
 gem 'sorcery'
+gem 'faker'
 
 group :development, :test do
   gem 'better_errors'
