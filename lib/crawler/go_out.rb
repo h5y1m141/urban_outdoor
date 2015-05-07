@@ -24,18 +24,24 @@ class Crawler::GoOut
         doc = Nokogiri::HTML.parse(response, nil)
         links = doc.xpath('//div[@id="item_list"]/ul/li/a/@href').map {|node| node.text()}
         links.each do |link|
-          Site.where(url: link).first_or_create
+          @logger.debug("#{Time.now}-#{target}-FAIL: save info #{brand} #{link}") unless persist?(brand, link)
         end
       else
-        @logger.debug("#{Time.now}-#{target}-#{response.code}")
+        @logger.debug("#{Time.now}-#{target}-FAIL: crawl")
       end
     end
   end
 
   private
 
-  def persist
-
+  def persist?(brand, link)
+    brand = Brand.where(name: brand).first_or_create
+    site = Site.where(url: link).first_or_create
+    if brand.valid? && site.valid?
+      site.brand = brand
+      return true
+    else
+      return false
+    end
   end
-
 end
