@@ -8,7 +8,7 @@ class SorceryCore < ActiveRecord::Migration
       t.string :last_name
       t.string :user_name
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :users, :email, unique: true
