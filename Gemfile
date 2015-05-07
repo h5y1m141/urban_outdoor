@@ -26,6 +26,10 @@ gem 'carrierwave'
 gem 'sorcery'
 gem 'faker'
 
+group :development do
+  gem 'annotate'
+end
+
 group :development, :test do
   gem 'better_errors'
   gem 'awesome_print'
