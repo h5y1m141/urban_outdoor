@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 20150501085633) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "user_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
     t.string   "reset_password_token"
