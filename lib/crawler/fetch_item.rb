@@ -12,7 +12,6 @@ class Crawler::FetchItem
       page_source = RestClient.get(site.url, user_agent: USER_AGENT)
       page = Nokogiri::HTML.parse(page_source, nil)
       item = page_data(page)
-      puts item
       item[:url] = site.url
       persist(item)
     end
@@ -21,9 +20,7 @@ class Crawler::FetchItem
   private
 
   def persist(item)
-    binding.pry
-    _item = Item.new(item)
-    _item.save
+    @logger.debug("#{Time.now}-#{item}-FAIL: fetch item") unless Item.create!(item)
   end
   
   def page_data(page)
@@ -34,11 +31,11 @@ class Crawler::FetchItem
     description = page.xpath('//div/p[@class="exp2"]').text()
     original_price = page.xpath('//div[@class="inr"]/p[@class="price"]').first.text().gsub(/[^0-9]/,"").to_i
     discounted = false
-    item_id = page.xpath('//p[@id="itemID"]').text().to_i
+    item_id = page.xpath('//p[@id="itemID"]').text().downcase
     picture_descriptions = page.xpath('//div[@id="detailTxt"]/ul/li').select {|node| node.text unless node.text.empty?}
     
     picture_descriptions.each.with_index(1) do |val, index|
-      images.push("#{img_base_url}-d#{format("%02d",index)}b.jpg")
+      images.push("#{img_base_url}#{item_id}-d#{format("%02d",index)}b.jpg")
     end
     
     {
@@ -46,7 +43,7 @@ class Crawler::FetchItem
       description: description,
       original_price: original_price,
       discounted: discounted,
-      image: images.first # 本来は複数画像のパスを保存したい
+      remote_image_url: images.first # 本来は複数画像のパスを保存したい
     }
   end
 end
