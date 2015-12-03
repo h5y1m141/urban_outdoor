@@ -7,7 +7,10 @@ box: ruby
 # You can also use services such as databases. Read more on our dev center:
 # http://devcenter.wercker.com/docs/services/index.html
 services:
-    - mysql
+  - id: mariadb
+    env:
+      MYSQL_ROOT_USERNAME: rili
+      MYSQL_ROOT_PASSWORD: password
     # http://devcenter.wercker.com/docs/services/postgresql.html
 
     # - mongodb
@@ -32,6 +35,9 @@ build:
             name: setup bundle config
             code: bundle config build.nokogiri --use-system-libraries
         - bundle-install
+        - script:
+            name: DB schema load
+            code: bundle exec rake db:schema:load
         - script:
             name: rspec
             code: bundle exec rspec
