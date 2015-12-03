@@ -21,16 +21,13 @@ build:
     # Read more about steps on our dev center:
     # http://devcenter.wercker.com/docs/steps/index.html
     steps:
+        - script:
+            name: set up node env
+            code: |
+                sudo apt-get update
+                sudo apt-get install nodejs
         - install-packages:
             packages: libqtwebkit-dev
-        - script:
-            name: install npm
-            code: |
-                cd js
-                mkdir -p "$WERCKER_CACHE_DIR/wercker/npm"
-                npm config set cache "$WERCKER_CACHE_DIR/wercker/npm"
-                sudo npm update
-                sudo npm install $WERCKER_NPM_INSTALL_OPTIONS              
         - script:
             name: setup bundle config
             code: bundle config build.nokogiri --use-system-libraries
