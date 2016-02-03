@@ -4,7 +4,7 @@ gem 'rails', '4.2.0'
 
 # Middleware
 gem 'unicorn'
-gem 'pg'
+gem 'mysql2', '~> 0.3.20'
 
 # Scraping
 gem 'rest-client'
@@ -19,11 +19,18 @@ gem 'angularjs-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'kaminari'
 
+## scheduler
+gem 'sidekiq', '3.4.2'
+gem 'sinatra', require: false # sidekiqのダッシュボード機能利用するため導入
+gem 'sidetiq'
+gem 'celluloid', '0.16.0'
+gem 'ice_cube'
+
 # other
 gem 'settingslogic'
 gem 'aws-sdk'
+gem 'rmagick'
 gem 'carrierwave'
-gem 'sorcery'
 gem 'faker'
 
 group :development do

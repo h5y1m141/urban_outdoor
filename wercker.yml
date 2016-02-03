@@ -1,0 +1,30 @@
+box: phusion/passenger-ruby22
+services:
+  - id: postgres
+    env:
+      POSTGRES_PASSWORD: secret_password
+# services:
+#   - id: mariadb
+#     env:
+#       MYSQL_ROOT_USERNAME: rili
+#       MYSQL_ROOT_PASSWORD: password
+
+build:
+    steps:
+        - script:
+            name: set up node env
+            code: |
+                sudo apt-get update
+                sudo apt-get -y install nodejs
+        - install-packages:
+            packages: libqtwebkit-dev
+        - script:
+            name: setup bundle config
+            code: bundle config build.nokogiri --use-system-libraries
+        - bundle-install
+        - script:
+            name: DB schema load
+            code: bundle exec rake db:schema:load
+        - script:
+            name: rspec
+            code: bundle exec rspec

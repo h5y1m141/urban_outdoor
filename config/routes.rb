@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :stores
+
   root to: 'static_pages#index'
   resources :items
   resources :users

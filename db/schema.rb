@@ -11,87 +11,85 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501085633) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20160203075024) do
 
   create_table "brands", force: :cascade do |t|
-    t.integer  "site_id"
-    t.string   "name"
-    t.integer  "priority"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.string   "furigana",   limit: 255
+    t.string   "url",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "brands", ["site_id"], name: "index_brands_on_site_id", using: :btree
-
   create_table "item_favorites", force: :cascade do |t|
-    t.integer  "resource_id"
-    t.string   "resource_type"
-    t.text     "comment"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "resource_id",   limit: 4
+    t.string   "resource_type", limit: 255
+    t.text     "comment",       limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "item_reviews", force: :cascade do |t|
-    t.integer  "resource_id"
-    t.string   "resource_type"
-    t.text     "comment"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "resource_id",   limit: 4
+    t.string   "resource_type", limit: 255
+    t.text     "comment",       limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "items", force: :cascade do |t|
-    t.string   "title",          null: false
-    t.string   "url",            null: false
-    t.integer  "original_price"
-    t.boolean  "discounted"
-    t.integer  "discount_price"
-    t.text     "description"
-    t.string   "image"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "name",           limit: 255,   null: false
+    t.string   "url",            limit: 255,   null: false
+    t.integer  "original_price", limit: 4
+    t.boolean  "discounted",     limit: 1
+    t.integer  "discount_price", limit: 4
+    t.text     "description",    limit: 65535
+    t.string   "image",          limit: 255
+    t.integer  "store_id",       limit: 4,     null: false
+    t.integer  "brand_id",       limit: 4,     null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
-  add_index "items", ["title"], name: "index_items_on_title", using: :btree
+  add_index "items", ["name"], name: "index_items_on_name", using: :btree
+
+  create_table "pictures", force: :cascade do |t|
+    t.integer  "width",                limit: 4
+    t.integer  "height",               limit: 4
+    t.string   "image",                limit: 255
+    t.string   "original_picture_url", limit: 255
+    t.integer  "item_id",              limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "pictures", ["item_id"], name: "index_pictures_on_item_id", using: :btree
 
   create_table "sites", force: :cascade do |t|
-    t.string   "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "url",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "stocks", force: :cascade do |t|
-    t.integer  "item_id"
-    t.string   "color"
-    t.string   "size"
-    t.boolean  "exist"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "item_id",    limit: 4
+    t.string   "color",      limit: 255
+    t.string   "size",       limit: 255
+    t.boolean  "in_stock",   limit: 1
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "stocks", ["item_id"], name: "index_stocks_on_item_id", using: :btree
 
-  create_table "users", force: :cascade do |t|
-    t.string   "email",                           null: false
-    t.string   "crypted_password"
-    t.string   "salt"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "user_name"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "remember_me_token"
-    t.datetime "remember_me_token_expires_at"
-    t.string   "reset_password_token"
-    t.datetime "reset_password_token_expires_at"
-    t.datetime "reset_password_email_sent_at"
+  create_table "stores", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "furigana",   limit: 255
+    t.string   "url",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
-
+  add_foreign_key "pictures", "items"
   add_foreign_key "stocks", "items"
 end
