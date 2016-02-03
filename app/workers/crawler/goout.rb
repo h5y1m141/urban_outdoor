@@ -7,6 +7,7 @@ class Crawler::Goout < Crawler::Base
     @base_url = "http://www.goout.jp"
     @target_brands = [
       'CHUMS'
+      'inhabitant'
     ]
   end
   def run
@@ -45,4 +46,66 @@ class Crawler::Goout < Crawler::Base
     @logger.debug(@pages)
     return
   end
+
+  def page_data(url)
+    page = Nokogiri::HTML.parse(page_source(url))
+    name = page.xpath('//section[@id="detailSect"]/h2').text
+    item_id = url.split('item/').last.split('.html').join.downcase
+    # JavaScriptで動的に画像パスを生成する処理をしてるため、それを再現。
+    # 画像の最大値を取得するのにul[@id="detailTxt"]/liの数をベースに算出してるロジックになってる
+    images = page.xpath('//ul[@id="detailTxt"]/li').map.with_index do |node, index|
+      detail_no_id = format('%02d', index + 1)
+      "#{@base_url}/client_info/GOOUT/itemimage/#{item_id}-d#{detail_no_id}b.jpg"
+    end
+    description = page.xpath('//div[@class="description"]').text
+    original_price = to_price(page.xpath('//section[@id="dataSect"]/dl/dd')[2].text)
+    store_id = (Store.where(url: "#{@base_url}/").present?) ? Store.where(url: "#{@base_url}/").first.id : nil
+    discount_price = nil
+    discounted = (discount_price.nil?) ? false : true
+    brand_name = page.xpath('//div[@class="brand"]').text
+    brand = (Brand.where(name: brand_name).present?) ? Brand.where(name: brand_name).first : nil
+    stocks = fetch_stocks(page)
+    {
+      name: name,
+      images: images,
+      url: url,
+      description: description,
+      original_price: original_price,
+      discount_price: discount_price,
+      discounted: discounted,
+      store_id: store_id,
+      brand_id: (brand.present?) ? brand.id : nil,
+      stocks: stocks
+    }    
+  end
+  def fetch_stocks(page)
+    colors = page.xpath().map{|node| {color: node.text} }
+    sizes = []
+    in_stock_labels = []
+    page.xpath().each do |node|
+
+      unless node.attributes.present?
+        sizes.push({size: node.children.first.children.text.split("/").first.squish })
+        in_stock_labels.push({ value: node.children.last.children.text })
+      end
+    end
+    in_stocks = in_stock_labels.map do |label|
+      if ['在庫なし'].include?label[:value]
+        { in_stock: false }
+      else
+        { in_stock: true }
+      end
+    end
+    stocks = []
+    colors.each do |c|
+      sizes.each_with_index do|s,index|
+        stocks.push({
+          color: c[:color],
+          size: s[:size],
+          in_stock: in_stocks[index][:in_stock]
+        })
+      end
+    end
+    return stocks
+  end  
 end

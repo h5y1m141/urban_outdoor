@@ -88,8 +88,8 @@ class Crawler::Zozotown < Crawler::Base
     brand = (Brand.where(name: brand_name).present?) ? Brand.where(name: brand_name).first : nil
     
     if page.xpath('//p[@class="price discount"]').present?
-      discount_price = page.xpath('//p[@class="price discount"]').first.children[1].text.gsub(/[^0-9]/,"").to_i
-      original_price = page.xpath('//p[@class="price discount"]').first.children[0].text.encode("UTF-16BE", "UTF-8", invalid: :replace, undef: :replace, :replace => '').encode("UTF-8").squish.gsub(/[^0-9]/,"").to_i
+      discount_price = to_price(page.xpath('//p[@class="price discount"]').first.children[1].text)
+      original_price = to_price(page.xpath('//p[@class="price discount"]').first.children[0].text.encode("UTF-16BE", "UTF-8", invalid: :replace, undef: :replace, :replace => '').encode("UTF-8").squish)
     else    
       discount_price = nil
       original_price = page.xpath('//p[@class="price"]').text.gsub(/[^0-9]/,"").to_i
