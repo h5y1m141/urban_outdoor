@@ -18,6 +18,7 @@ gem 'jquery-rails'
 gem 'angularjs-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'kaminari'
+gem 'twitter-bootstrap-rails'
 
 ## scheduler
 gem 'sidekiq', '3.4.2'
@@ -32,9 +33,15 @@ gem 'aws-sdk'
 gem 'rmagick'
 gem 'carrierwave'
 gem 'faker'
+gem 'seed-fu', '~> 2.3'
 
 group :development do
   gem 'annotate'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano3-unicorn'
+  gem 'thin'
 end
 
 group :development, :test do

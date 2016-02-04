@@ -1,0 +1,26 @@
+<div class='container-fluid'>
+<% @items.each_slice(4) do |column4_items| %>
+  <div class='row'>
+    <% column4_items.each do |item| %>
+      <div class='col-md-3 col-sm-6'>
+        <% if item.pictures.present? %>
+          <%= image_tag item.pictures.first.image.large_thumb.url %>
+        <% end %>
+        <h4><%= item.name %></h4>
+        <ul class='list-unstyled'>
+          <li>ブランド<%= item.brand.name %></li>
+          <li>金額：<%= number_to_currency(item.original_price, locale: 'jp') %></li>
+        </ul>
+        <ul class='list-inline'>
+          <li>
+            <button class="btn btn-primary btn-sm">編集</button>
+          </li>
+          <li>
+            <button class="btn btn-danger btn-sm">削除</button>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+</div>
