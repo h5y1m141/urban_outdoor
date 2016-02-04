@@ -43,5 +43,9 @@ module Crawler
         return false
       end
     end
+
+    def to_price(str_price)
+      return str_price.gsub(/[^0-9]/,"").to_i
+    end
   end
 end
