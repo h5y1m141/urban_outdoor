@@ -13,8 +13,10 @@
         </ul>
         <ul class='list-inline'>
           <li>
-            <button class="btn btn-primary btn-sm">編集</button>
-          </li>
+            <%= link_to(edit_admin_item_path(item)) do %>
+              <button class="btn btn-primary btn-sm">編集</button>
+            <% end %>
+           </li>
           <li>
             <button class="btn btn-danger btn-sm">削除</button>
           </li>
