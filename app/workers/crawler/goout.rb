@@ -6,7 +6,7 @@ class Crawler::Goout < Crawler::Base
     super
     @base_url = "http://www.goout.jp"
     @target_brands = [
-      'CHUMS'
+      'CHUMS',
       'inhabitant'
     ]
   end
@@ -79,31 +79,15 @@ class Crawler::Goout < Crawler::Base
     }    
   end
   def fetch_stocks(page)
-    colors = page.xpath().map{|node| {color: node.text} }
-    sizes = []
-    in_stock_labels = []
-    page.xpath().each do |node|
-
-      unless node.attributes.present?
-        sizes.push({size: node.children.first.children.text.split("/").first.squish })
-        in_stock_labels.push({ value: node.children.last.children.text })
-      end
-    end
-    in_stocks = in_stock_labels.map do |label|
-      if ['在庫なし'].include?label[:value]
-        { in_stock: false }
-      else
-        { in_stock: true }
-      end
-    end
+    sizes = page.xpath('//div[@id="selectItem"]/table/tr')[0].children.map{|node| node.text.squish}.select{|size| size unless size.empty?}
     stocks = []
-    colors.each do |c|
-      sizes.each_with_index do|s,index|
-        stocks.push({
-          color: c[:color],
-          size: s[:size],
-          in_stock: in_stocks[index][:in_stock]
-        })
+    page.xpath('//div[@id="selectItem"]/table/tr').each do |tr|
+      unless tr.xpath('td').empty?
+        tr.xpath('td').each_with_index do |node, index|
+          size = sizes[index]
+          in_stock = (node.text.squish != '×')
+          stocks.push({size: size, color: tr.xpath('th').text.squish, in_stock: in_stock})
+        end
       end
     end
     return stocks
