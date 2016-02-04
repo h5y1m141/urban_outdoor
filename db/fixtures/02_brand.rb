@@ -1,0 +1,7 @@
+Brand.create(name:'adidas', furigana: 'アディダス')
+Brand.create(name:'adidas Originals', furigana: 'アディダスオリジナルス')
+Brand.create(name:'New Balance',furigana: 'ニューバランス')
+Brand.create(name:'OAKLEY', furigana: 'オークリー')
+Brand.create(name:'CHUMS', furigana: 'チャムス')
+Brand.create(name:'inhabitant', furigana: 'インハビタント')
+Brand.create(name:'LOWRYS FARM', furigana: 'ローリーズファーム')

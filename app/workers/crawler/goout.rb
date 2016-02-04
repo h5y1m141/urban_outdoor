@@ -50,7 +50,7 @@ class Crawler::Goout < Crawler::Base
   def page_data(url)
     page = Nokogiri::HTML.parse(page_source(url))
     name = page.xpath('//section[@id="detailSect"]/h2').text
-    item_id = url.split('item/').last.split('.html').join.downcase
+    item_id = url.split('/').last.split('.html').join.downcase
     # JavaScriptで動的に画像パスを生成する処理をしてるため、それを再現。
     # 画像の最大値を取得するのにul[@id="detailTxt"]/liの数をベースに算出してるロジックになってる
     images = page.xpath('//ul[@id="detailTxt"]/li').map.with_index do |node, index|

@@ -7,7 +7,7 @@ class Crawler::Scraper
     @goout = Crawler::Goout.new
     @sleep_time = 2
     @sites = [
-      { name: 'zozotown', crawl: @zozotown },
+      # { name: 'zozotown', crawl: @zozotown },
       { name: 'goout', crawl: @goout }
     ]
   end
