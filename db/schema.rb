@@ -11,7 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203075024) do
+ActiveRecord::Schema.define(version: 20160205053656) do
+
+  create_table "article_elements", force: :cascade do |t|
+    t.string   "tag_name",     limit: 255
+    t.text     "element_data", limit: 65535
+    t.integer  "article_id",   limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "article_elements", ["article_id"], name: "index_article_elements_on_article_id", using: :btree
+
+  create_table "article_item_relays", force: :cascade do |t|
+    t.integer  "item_id",    limit: 4
+    t.integer  "article_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "article_picture_relays", force: :cascade do |t|
+    t.integer  "article_id", limit: 4
+    t.integer  "picture_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.string   "title",          limit: 255
+    t.integer  "publish_status", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "brands", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -90,6 +121,7 @@ ActiveRecord::Schema.define(version: 20160203075024) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "article_elements", "articles"
   add_foreign_key "pictures", "items"
   add_foreign_key "stocks", "items"
 end
