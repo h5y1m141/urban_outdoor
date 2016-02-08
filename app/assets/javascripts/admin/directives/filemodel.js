@@ -1,13 +1,6 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name RiliApp.directive:filemodel
- * @description
- * # ファイルアップロード
- * Directive
- */
-angular.module('RiliApp')
+angular.module('UrbanOutdoorApp')
   .directive("fileModel", ["$parse", function ($parse) {
     return {
       restrict: "A",

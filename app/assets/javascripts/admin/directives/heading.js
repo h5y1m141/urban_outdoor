@@ -1,12 +1,6 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name RiliApp.directive:heading
- * @description
- * # 記事投稿画面で記事の中見出しの表示用のDirective
- */
-angular.module('RiliApp')
+angular.module('UrbanOutdoorApp')
   .directive("heading", function($compile) {
     return {
       restrict: 'E',
