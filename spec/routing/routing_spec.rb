@@ -23,3 +23,10 @@ describe Admin::ItemsController, type: :routing do
   it_routes_to(:patch, '/admin/items/1', 'admin/items#update', id: '1', format: :html )
   it_routes_to(:delete, '/admin/items/1', 'admin/items#destroy', id: '1', format: :html )
 end
+
+describe Admin::ArticlesController, type: :routing do
+  it_routes_to(:get, '/admin/articles', 'admin/articles#index', format: :html )
+  it_routes_to(:get, '/admin/articles/1/edit', 'admin/articles#edit', id: '1', format: :html )
+  it_routes_to(:patch, '/admin/articles/1', 'admin/articles#update', id: '1', format: :html )
+  it_routes_to(:delete, '/admin/articles/1', 'admin/articles#destroy', id: '1', format: :html )
+end
