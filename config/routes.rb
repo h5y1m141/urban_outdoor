@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   root to: 'static_pages#index'
   resources :items
   resources :users
-  namespace :admin, defaults: {format: :html } do
+  namespace :admin do
     resources :items, only: [:index, :edit, :update, :destroy]
+    resources :articles
   end
   controller :static_pages do
     get :about
