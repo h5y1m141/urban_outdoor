@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('UrbanOutdoorApp')
-  .controller('ArticleCtrl',['$scope' , function ($scope) {
+  .controller('ArticleCtrl', ['$scope','Article', '$http', function ($scope, Article, $http) {
     // 画面上部の入力項目のタブ用のscope
     $scope.tabs = [
       { title: '必須項目'},
@@ -9,16 +9,22 @@ angular.module('UrbanOutdoorApp')
     ];
     $scope.selectedTab = 0;
     $scope.selectTab = function(index){
-      console.log(index);
       $scope.selectedTab = index;
     };
     // プレビューエリアの表示のために利用
     $scope.contentsArea = [];
 
+    $scope.saveArticle = function(){
+      Article.save({
+        title: $scope.mainTitle,
+        publish_status: 0,
+        elements_attributes: $scope.contentsArea
+      });
+    };
     $scope.insertInstagram = function(){
       $scope.contentsArea.push({
-        tagName: 'instagram',
-        data: $scope.instagram
+        tag_name: 'instagram',
+        element_data: $scope.instagram
       });
       $scope.instagramURL = '';
     };
@@ -31,11 +37,11 @@ angular.module('UrbanOutdoorApp')
     $scope.insertItems = function(){
       if ($scope.selectedItems.length > 0){
         $scope.contentsArea.push({
-          tagName: 'items',
-          data: $scope.selectedItems
+          tag_name: 'items',
+          element_data: $scope.selectedItems
         });
         $scope.selectedItems = [];
       }
-    };    
+    };
   }]);
 
