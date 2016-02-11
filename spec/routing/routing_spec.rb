@@ -18,15 +18,16 @@ RSpec.describe ItemsController, type: :routing do
 end
 
 describe Admin::ItemsController, type: :routing do
-  it_routes_to(:get, '/admin/items', 'admin/items#index', format: :html )
-  it_routes_to(:get, '/admin/items/1/edit', 'admin/items#edit', id: '1', format: :html )
-  it_routes_to(:patch, '/admin/items/1', 'admin/items#update', id: '1', format: :html )
-  it_routes_to(:delete, '/admin/items/1', 'admin/items#destroy', id: '1', format: :html )
+  it_routes_to(:get, '/admin/items', 'admin/items#index')
+  it_routes_to(:get, '/admin/items/1/edit', 'admin/items#edit', id: '1')
+  it_routes_to(:patch, '/admin/items/1', 'admin/items#update', id: '1')
+  it_routes_to(:delete, '/admin/items/1', 'admin/items#destroy', id: '1')
 end
 
 describe Admin::ArticlesController, type: :routing do
-  it_routes_to(:get, '/admin/articles', 'admin/articles#index', format: :html )
-  it_routes_to(:get, '/admin/articles/1/edit', 'admin/articles#edit', id: '1', format: :html )
-  it_routes_to(:patch, '/admin/articles/1', 'admin/articles#update', id: '1', format: :html )
-  it_routes_to(:delete, '/admin/articles/1', 'admin/articles#destroy', id: '1', format: :html )
+  it_routes_to(:get, '/admin/articles', 'admin/articles#index')
+  it_routes_to(:get, '/admin/articles/1/edit', 'admin/articles#edit', id: '1')
+  it_routes_to(:patch, '/admin/articles/1', 'admin/articles#update', id: '1')
+  it_routes_to(:delete, '/admin/articles/1', 'admin/articles#destroy', id: '1')
+  it_routes_to(:post, '/admin/articles.json', 'admin/articles#create', format: 'json' )
 end
