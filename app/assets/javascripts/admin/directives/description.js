@@ -22,9 +22,8 @@ angular.module('UrbanOutdoorApp')
               element_data: scope.description
             });
           }
-          element.html('');
-
-          $compile(element.contents())(scope);
+          scope.description = '';
+          scope.$apply();
         });
         scope.$watch('description', function(html){
           var subHeadButton,
