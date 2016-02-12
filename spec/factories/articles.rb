@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :article do
-    title "MyString"
-publish_status 1
+    sequence(:title) { |n| "記事のタイトル#{n}" }
+    publish_status 0
   end
-
 end

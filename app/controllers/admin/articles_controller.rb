@@ -9,14 +9,11 @@ class Admin::ArticlesController < AdminController
   end
 
   def create
-    article = Article.new(article_param)    
-    respond_to do |format|
-      format.json do
-        if article.save
-          render json: article
-        else
-        end
-      end
+    @article = Article.new(article_param)
+    if @article.save
+      @article
+    else
+      render json: {}, status: 400
     end
   end
 
