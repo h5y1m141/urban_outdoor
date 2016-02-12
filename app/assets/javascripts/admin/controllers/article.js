@@ -4,7 +4,8 @@ angular.module('UrbanOutdoorApp')
   .controller('ArticleCtrl', ['$scope','Article', '$http', function ($scope, Article, $http) {
     // 画面上部の入力項目のタブ用のscope
     $scope.tabs = [
-      { title: '必須項目'},
+      { title: '記事の基本情報'},
+      { title: '文章登録'},
       { title: '画像登録'}
     ];
     $scope.selectedTab = 0;
@@ -27,21 +28,6 @@ angular.module('UrbanOutdoorApp')
         element_data: $scope.instagram
       });
       $scope.instagramURL = '';
-    };
-
-    $scope.selectItem = function(item){
-      $scope.selectedItems.push(item);
-    };
-
-    $scope.selectedItems = [];
-    $scope.insertItems = function(){
-      if ($scope.selectedItems.length > 0){
-        $scope.contentsArea.push({
-          tag_name: 'items',
-          element_data: $scope.selectedItems
-        });
-        $scope.selectedItems = [];
-      }
     };
   }]);
 

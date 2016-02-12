@@ -12,21 +12,21 @@
         </ul>
         <div class="tab-content">
           <%= render partial: "required_element" %>
-          <%= render partial: "input_image" %>          
+          <%= render partial: "input_text" %>
+          <%= render partial: "input_image" %>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 article__contents__preview">
         <h4>プレビューエリア</h4>
-        <div ng-if="mainTitle" title="mainTitle"></div>
+        <div ng-if="mainTitle">{{ mainTitle }}</div>
         <div class="article__contents__container">
           <div ng-repeat="content in contentsArea track by $index">
             <items data="content.element_data" ng-if="content.tag_name == 'items'"></items>
             <img class="article__contents__preview__thumb" ng-if="content.tag_name == 'img' || content.tag_name == 'thumbnail' || content.tag_name == 'title_img' || content.tag_name == 'subtitle_img' || content.tag_name == 'main_visual_image'" picture="content.imagePath"/>
             <heading data="content.element_data" ng-if="content.tag_name == 'heading'"></heading>
-            <div ng-if="content.tag_name == 'sub_head'" subhead="content.element_data "></div>
-            <div description="content.element_data" ng-if="content.tag_name == 'description' || content.tag_name == 'leading_sentence'"></div>
+            <div ng-if="content.tag_name == 'sub_head'">{{content.element_data }}</div>
             <div layout="content.element_data" ng-if="content.tag_name == 'hr'"></div>
             <instagram data="content.element_data" ng-if="content.tag_name == 'instagram'"></instagram>
             <linkbutton data="content.element_data" ng-if="content.tag_name == 'linkbutton'"></linkbutton>
