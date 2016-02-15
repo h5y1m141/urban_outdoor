@@ -10,10 +10,7 @@
  */
 angular
   .module('UrbanOutdoorApp', [
-    'ngResource',
-    'ngTagsInput',
-    'ang-drag-drop',
-    'ngLodash'
+    'ngResource'
   ])
   .config(["$httpProvider", function($httpProvider) {
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
