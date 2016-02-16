@@ -53,6 +53,7 @@ group :development, :test do
   gem 'spring'
   gem 'factory_girl_rails'
   gem 'rack-cors', :require => 'rack/cors'
+  gem 'teaspoon-jasmine'
 end
 
 group :test do
