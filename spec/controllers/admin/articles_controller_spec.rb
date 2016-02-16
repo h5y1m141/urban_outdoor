@@ -1,4 +1,7 @@
 describe Admin::ArticlesController, type: :controller do
+  let(:user) { create(:user) }
+  before(:each) { login_user(user) }
+
   describe "newアクションについて" do
     let(:request) { get :new }
     it_renders_template(:new)
