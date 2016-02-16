@@ -34,6 +34,7 @@ gem 'rmagick'
 gem 'carrierwave'
 gem 'faker'
 gem 'seed-fu', '~> 2.3'
+gem 'devise', '~> 3.5'
 
 group :development do
   gem 'annotate'

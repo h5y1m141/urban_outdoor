@@ -64,7 +64,10 @@ module ControllerMacros
 
     def when_authenticated(&block)
       context 'ログイン済みの場合' do
-        before { sign_in(create(:user)) }
+        before do
+          @request.env['devise.mapping'] = Devise.mappings[:user]
+          sign_in(create(:user))
+        end
       end.class_eval(&block)
     end
 
@@ -86,6 +89,11 @@ module ControllerMacros
 
   def current_user
     @controller.current_user
+  end
+
+  def login_user(user)
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in user
   end
 end
 
