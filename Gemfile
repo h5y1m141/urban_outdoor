@@ -1,3 +1,4 @@
+ruby File.read(File.expand_path('../.ruby-version', __FILE__)).strip
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
