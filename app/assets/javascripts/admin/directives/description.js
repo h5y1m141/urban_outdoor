@@ -31,7 +31,7 @@ angular.module('UrbanOutdoorApp')
           if(html) {
           subHeadButton = '<button id="subHead" class="btn-info">見出しとして登録</button>';
           descriptionButton = '<button id="description" class="btn-info">説明文として登録</button>';            
-            element.html(html.replace(/[\n\r]/g, '<br />') + subHeadButton + descriptionButton);
+            element.html(subHeadButton + descriptionButton);
             $compile(element.contents())(scope);
           }
         });
