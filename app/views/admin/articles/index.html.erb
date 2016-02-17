@@ -1,7 +1,18 @@
 <div class='container-fluid'>
-  <% @articles.each do |article| %>
-    <div class='row'>
-      <h4><%= article.title %></h4>
-    </div>
-  <% end %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>タイトル</th>
+        <th>詳細</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @articles.each do |article| %>
+        <tr>
+          <td><%= article.title %></td>
+          <td><%= link_to '編集画面へ', edit_admin_article_path(article.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
