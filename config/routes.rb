@@ -12,7 +12,12 @@ Rails.application.routes.draw do
   end
   namespace :admin do
     resources :items, only: [:index, :edit, :update, :destroy]
-    resources :articles
+    resources :articles do
+      collection do
+        post :load_elements
+      end
+    end
+    
   end
   root to: 'static_pages#index'
 end

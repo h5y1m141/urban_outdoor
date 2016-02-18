@@ -10,6 +10,16 @@ angular.module('UrbanOutdoorApp')
         headers : {
           'Content-Type': 'application/json'
         }
+      },
+      loadElements: {
+        method: 'POST',
+        headers : {
+          'Content-Type': 'application/json'
+        },
+        url: '/admin/articles/load_elements.json',
+        params: {
+          id: '@value'
+        }
       }
     });
   }]);
