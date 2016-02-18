@@ -30,4 +30,5 @@ describe Admin::ArticlesController, type: :routing do
   it_routes_to(:patch, '/admin/articles/1', 'admin/articles#update', id: '1')
   it_routes_to(:delete, '/admin/articles/1', 'admin/articles#destroy', id: '1')
   it_routes_to(:post, '/admin/articles.json', 'admin/articles#create', format: 'json' )
+  it_routes_to(:post, '/admin/articles/load_elements.json', 'admin/articles#load_elements', format: 'json' )
 end

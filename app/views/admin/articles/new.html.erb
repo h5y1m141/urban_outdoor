@@ -3,13 +3,21 @@
   <section class="wrapper">
     <div class="row">
       <div class="col-sm-12 article__contents__menu">
-        <ul class="nav nav-tabs">
-          <li data-toggle="tab" ng-repeat="tab in tabs" ng-click='selectTab($index)' ng-class="{'active':selectedTab == $index}">
-            <a data-toggle="tab" href="#"> 
-              {{ tab.title }}
-            </a>
-          </li>
-        </ul>
+        <div class="pull-right">
+          <ul class="list-inline">
+            <li><button class="btn-info" ng-click="saveArticle()">下書き保存</button></li>
+            <li><button class="btn-info" ng-click="saveArticle()">公開保存</button></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="nav nav-tabs">
+            <li data-toggle="tab" ng-repeat="tab in tabs" ng-click='selectTab($index)' ng-class="{'active':selectedTab == $index}">
+              <a data-toggle="tab" href="#">
+                {{ tab.title }}
+              </a>
+            </li>
+          </ul>
+        </div>
         <div class="tab-content">
           <%= render partial: "required_element" %>
           <%= render partial: "input_text" %>
@@ -18,19 +26,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-12 article__contents__preview">
-        <h4>プレビューエリア</h4>
-        <hr/>
-        <h2 ng-if="mainTitle">{{ mainTitle }}</h2>
-        <div class="article__contents__container">
-          <div ng-repeat="content in contentsArea track by $index">
-            <preview-text data="content.element_data" tag="content.tag_name" ng-if="content.tag_name == 'sub_head' || content.tag_name == 'description'"></preview-text>
-            <img class="article__contents__preview__thumb" ng-if="content.tag_name == 'img' || content.tag_name == 'thumbnail' || content.tag_name == 'title_img' || content.tag_name == 'subtitle_img' || content.tag_name == 'main_visual_image'" picture="content.imagePath"/>
-
-            <instagram data="content.element_data" ng-if="content.tag_name == 'instagram'"></instagram>
-          </div>
-        </div>
-      </div>
-    </div>    
-  </section>  
+      <%= render partial: "contents_preview" %>
+    </div>
+  </section>
 </section>

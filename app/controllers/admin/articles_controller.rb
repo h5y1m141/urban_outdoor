@@ -1,5 +1,5 @@
 class Admin::ArticlesController < AdminController
-  before_action :set_article, only: [:edit, :destroy, :update]
+  before_action :set_article, only: [:edit, :destroy, :update, :load_elements]
   def index
     @articles = Article.includes(:pictures).order("updated_at DESC").all.page(params[:page])
   end
@@ -18,6 +18,9 @@ class Admin::ArticlesController < AdminController
   end
 
   def edit
+  end
+
+  def load_elements
   end
 
   private
