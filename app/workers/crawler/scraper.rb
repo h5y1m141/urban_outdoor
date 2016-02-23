@@ -5,10 +5,12 @@ class Crawler::Scraper
     @redis = Redis.new
     @zozotown = Crawler::Zozotown.new
     @goout = Crawler::Goout.new
+    @nanga = Crawler::Nanga.new
     @sleep_time = 2
     @sites = [
       # { name: 'zozotown', crawl: @zozotown },
-      { name: 'goout', crawl: @goout }
+      { name: 'goout', crawl: @goout },
+      { name: 'nanga', crawl: @nanga }
     ]
   end
   def run
