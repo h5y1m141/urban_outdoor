@@ -11,3 +11,4 @@
 # Ignore rbenv config.
 .rbenv-gemsets
 /public/uploads
+.vagrant
