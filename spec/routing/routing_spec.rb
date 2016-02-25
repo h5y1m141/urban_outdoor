@@ -17,6 +17,10 @@ RSpec.describe ItemsController, type: :routing do
   end
 end
 
+describe ArticlesController, type: :routing do
+  it_routes_to(:get, '/articles/preview/1', 'articles#preview', preview_key: '1')
+end
+
 describe Admin::ItemsController, type: :routing do
   it_routes_to(:get, '/admin/items', 'admin/items#index')
   it_routes_to(:get, '/admin/items/1/edit', 'admin/items#edit', id: '1')

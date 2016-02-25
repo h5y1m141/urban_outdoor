@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :items
   resources :users
   resources :stores
+  resources :articles, only: [:index, :show]
   controller :static_pages do
     get :about
   end
@@ -20,4 +21,5 @@ Rails.application.routes.draw do
     
   end
   root to: 'static_pages#index'
+  get '/articles/preview/:preview_key', to: 'articles#preview'
 end
