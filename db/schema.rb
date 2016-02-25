@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216051246) do
+ActiveRecord::Schema.define(version: 20160225063429) do
 
   create_table "article_elements", force: :cascade do |t|
     t.string   "tag_name",     limit: 255
@@ -42,7 +42,10 @@ ActiveRecord::Schema.define(version: 20160216051246) do
     t.integer  "publish_status", limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "preview_key",    limit: 255
   end
+
+  add_index "articles", ["preview_key"], name: "index_articles_on_preview_key", using: :btree
 
   create_table "brands", force: :cascade do |t|
     t.string   "name",       limit: 255
