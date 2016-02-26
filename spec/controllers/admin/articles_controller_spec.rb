@@ -8,9 +8,8 @@ describe Admin::ArticlesController, type: :controller do
   end
 
   describe "createアクションについて" do
-    before :each do
+    before(:each) do
       request.env["HTTP_ACCEPT"] = 'application/json'
-      
     end
     describe '記事作成のタイトルのみ渡された場合' do
       let(:response) {post :create , { title: '記事コンテンツのタイトル' } }
