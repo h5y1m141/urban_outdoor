@@ -67,4 +67,5 @@ group :test do
   gem 'email_spec'
   gem 'fakeredis', require: 'fakeredis/rspec'
   gem 'shoulda-matchers', require: false
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
 end
