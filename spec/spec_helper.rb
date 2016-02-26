@@ -3,6 +3,7 @@ require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'shoulda/matchers'
+require 'database_cleaner'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 RSpec.configure do |config|
@@ -13,4 +14,13 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
   config.render_views = true
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  # 以下設定しないとfactoryの変更が反映されません
+  config.before(:all) do
+    FactoryGirl.reload
+  end
 end
