@@ -19,12 +19,13 @@ class Item < ActiveRecord::Base
   has_many :reviews, as: :resource, class_name: ItemReview.name
   has_many :favorites, as: :resource, class_name: ItemFavorite.name
   has_many :pictures, dependent: :delete_all
+  has_many :tags, dependent: :delete_all
   belongs_to :brand
   belongs_to :store
   mount_uploader :image, PictureUploader
 
   accepts_nested_attributes_for :stocks
-
+  accepts_nested_attributes_for :tags
   def self.create_or_update_by_crawler(params)
     return false unless params[:url] && params[:images] && params[:stocks]
     pictures = self.prepare_pictures(params[:images], params[:url])
