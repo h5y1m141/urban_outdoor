@@ -58,10 +58,8 @@ class Crawler::Goout < Crawler::Base
       "#{@base_url}/client_info/GOOUT/itemimage/#{item_id}-d#{detail_no_id}b.jpg"
     end
     description = page.xpath('//div[@class="description"]').text
-    original_price = to_price(page.xpath('//section[@id="dataSect"]/dl/dd')[2].text)
     store_id = (Store.where(url: "#{@base_url}/").present?) ? Store.where(url: "#{@base_url}/").first.id : nil
-    discount_price = nil
-    discounted = (discount_price.nil?) ? false : true
+    prices = fetch_price(page)
     brand_name = page.xpath('//div[@class="brand"]').text
     brand = (Brand.where(name: brand_name).present?) ? Brand.where(name: brand_name).first : nil
     stocks = fetch_stocks(page)
@@ -70,13 +68,13 @@ class Crawler::Goout < Crawler::Base
       images: images,
       url: url,
       description: description,
-      original_price: original_price,
-      discount_price: discount_price,
-      discounted: discounted,
+      original_price: prices[:original_price],
+      discount_price: prices[:discount_price],
+      discounted: prices[:discounted],
       store_id: store_id,
       brand_id: (brand.present?) ? brand.id : nil,
       stocks: stocks
-    }    
+    }
   end
   def fetch_stocks(page)
     sizes = page.xpath('//div[@id="selectItem"]/table/tr')[0].children.map{|node| node.text.squish}.select{|size| size unless size.empty?}
@@ -91,5 +89,20 @@ class Crawler::Goout < Crawler::Base
       end
     end
     return stocks
-  end  
+  end
+  def fetch_price(page)
+    if(page.xpath('//div[@class="price"]/span/span[@class="proper"]').text.empty?)
+      original_price = to_price(page.xpath('//section[@id="dataSect"]/dl/dd')[2].text)
+      discount_price = nil
+    else
+      original_price = to_price(page.xpath('//div[@class="price"]/span/span[@class="proper"]').text.squish)
+      discount_price = to_price(page.xpath('//div[@class="price"]/span/span[@class="saleprice"]').first.children[0].text.squish)
+    end
+    discounted = (discount_price.nil?) ? false : true
+    {
+      original_price: original_price,
+      discount_price: discount_price,
+      discounted: discounted
+    }
+  end
 end
