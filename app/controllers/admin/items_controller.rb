@@ -13,9 +13,9 @@ class Admin::ItemsController < AdminController
   end
 
   def update
-    tag_values = item_params[:tags_attributes]['0']['name'].split(",")
-    tags = tag_values.map{|tag_name| Tag.where(name: tag_name).first_or_create(name: tag_name) }
+    tag_values = params[:tags].split(",")
     @item.tags = []
+    tags = tag_values.map{|tag_name| Tag.where(name: tag_name).first_or_create(name: tag_name) }
     @item.tags.push(tags)
     if @item.save
       redirect_to admin_items_path, notice: '更新が完了しました'
@@ -29,6 +29,6 @@ class Admin::ItemsController < AdminController
     @item = Item.find(params[:id])
   end
   def item_params
-    params.require(:item).permit(:name, :url , :original_price, :discounted, :discount_price, :description, tags_attributes: [:id, :name])
+    params.require(:item).permit(:name, :url , :original_price, :discounted, :discount_price, :description, :tags)
   end
 end

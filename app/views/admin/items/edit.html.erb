@@ -13,9 +13,8 @@
     <%= image_tag(@item.pictures.first.image.url)%>
     <%= form_for(@item, url: admin_item_path) do |f| %>
       <%= f.label :tags, 'タグ' %>
-      <%= f.fields_for :tags do |tags_form| %>
-        <%= tags_form.text_field :name %><br />
-      <% end %>
+      <% tag_value = @item.tags.map{|tag| tag[:name]} %>
+      <%= f.text_field :name, id: 'tags', name: 'tags', value: tag_value.join(",")  %><br />
       <div class="actions">
         <%= f.submit '更新する' %>
       </div>
