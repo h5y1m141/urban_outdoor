@@ -13,7 +13,6 @@ describe('directives:description', function () {
   it('HTMLの要素が置き換わる', function () {
     var element = $compile('<description data="description" contents="contentsArea">説明文</description>')($rootScope);
     $rootScope.$digest();
-    console.log(element.html());
     expect(element.html()).toContain('説明文');
   });
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('UrbanOutdoorApp')
-  .controller('ArticleCtrl', ['$scope','Article', '$http', function ($scope, Article, $http) {
+  .controller('ArticleCtrl', ['$scope','Article', function ($scope, Article) {
     // 画面上部の入力項目のタブ用のscope
     $scope.tabs = [
       { title: '記事の基本情報'},
