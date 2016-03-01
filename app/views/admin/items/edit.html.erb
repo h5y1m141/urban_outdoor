@@ -8,9 +8,9 @@
     </h3>
   </div>
 </div>
-<div class="row">
+<div class="row" ng-controller="ItemCtrl">
   <div class="col-xs-6">
-    <%= image_tag(@item.pictures.first.image.url)%>
+    <img ng-src="{{ thumbnail }}">
     <%= form_for(@item, url: admin_item_path) do |f| %>
       <%= f.label :tags, 'タグ' %>
       <% tag_value = @item.tags.map{|tag| tag[:name]} %>
@@ -21,15 +21,15 @@
     <% end %>
   </div>
   <div class="col-xs-6">
-    <% unless @item.pictures.empty? %>
-      <% @item.pictures.each do |picture| %>
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-            <%= image_tag(picture.image.url)%>
-          </div>
-        </div>
+    <div ng-init="init('<%= @item.pictures.to_json %>')">
+      <% unless @item.pictures.empty? %>
+        <ul class="list-inline">
+          <li ng-repeat="picuture in pictures track by $index">
+            <img ng-click="selectThumbnail($index)" ng-src="{{ picuture.image.medium_thumb.url }}">
+          </li>
+        </ul>
       <% end %>
-    <% end %>
+    </div>
     <table class="table">
       <tr>
         <th class="col-xs-3">このアイテムについて</th>
