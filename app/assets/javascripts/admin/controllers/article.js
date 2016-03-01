@@ -22,6 +22,12 @@ angular.module('UrbanOutdoorApp')
         elements_attributes: $scope.contentsArea
       });
     };
+    $scope.insertInstagram = function(){
+      $scope.contentsArea.push({
+        tag_name: 'instagram',
+        element_data: $scope.instagram
+      });
+    },
     $scope.loadElements = function(article){
       var query,
           elements;
