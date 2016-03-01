@@ -22,6 +22,7 @@ class Item < ActiveRecord::Base
   has_many :tags, dependent: :delete_all
   belongs_to :brand
   belongs_to :store
+  belongs_to :thumbnail, class_name: 'Picture', foreign_key: :thumbnail_id
   mount_uploader :image, PictureUploader
 
   accepts_nested_attributes_for :stocks

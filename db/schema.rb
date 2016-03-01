@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229040124) do
+ActiveRecord::Schema.define(version: 20160301080847) do
 
   create_table "article_elements", force: :cascade do |t|
     t.string   "tag_name",     limit: 255
@@ -83,9 +83,11 @@ ActiveRecord::Schema.define(version: 20160229040124) do
     t.integer  "brand_id",       limit: 4,     null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "thumbnail_id",   limit: 4
   end
 
   add_index "items", ["name"], name: "index_items_on_name", using: :btree
+  add_index "items", ["thumbnail_id"], name: "index_items_on_thumbnail_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "width",                limit: 4
