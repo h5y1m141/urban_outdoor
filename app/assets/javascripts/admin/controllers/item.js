@@ -2,11 +2,16 @@
 
 angular.module('UrbanOutdoorApp')
   .controller('ItemCtrl', ['$scope', function ($scope) {
-    $scope.init = function(pictures){
+    $scope.init = function(thumbnail, pictures){
+      var _thumbnail = JSON.parse(thumbnail);
       $scope.pictures = JSON.parse(pictures);
-      $scope.thumbnail = $scope.pictures[0].image.url;
+      if(thumbnail){
+        $scope.thumbnail = _thumbnail;
+      } else {
+        $scope.thumbnail = $scope.pictures[0];
+      }
     };
     $scope.selectThumbnail = function(index) {
-      $scope.thumbnail = $scope.pictures[index].image.url;
+      $scope.thumbnail = $scope.pictures[index];
     };
   }]);

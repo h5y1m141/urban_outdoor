@@ -3,7 +3,9 @@
   <div class='row'>
     <% column4_items.each do |item| %>
       <div class='col-md-3 col-sm-6'>
-        <% if item.pictures.present? %>
+        <% if item.thumbnail.present? %>
+          <%= image_tag item.thumbnail.image.large_thumb.url %>
+        <% else %>
           <%= image_tag item.pictures.first.image.large_thumb.url %>
         <% end %>
         <h4><%= item.name %></h4>
