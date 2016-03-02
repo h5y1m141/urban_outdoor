@@ -2,7 +2,7 @@ class Admin::ArticlesController < AdminController
   before_action :set_article, only: [:edit, :destroy, :update, :load_elements]
   
   def index
-    @articles = Article.includes(:pictures).order("updated_at DESC").all.page(params[:page])
+    @articles = Article.includes(:pictures).order("updated_at DESC").all.page(params[:page]).per(params[:per_page])
   end
 
   def new
