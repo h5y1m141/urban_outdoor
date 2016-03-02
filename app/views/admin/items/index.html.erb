@@ -20,7 +20,9 @@
             <% end %>
            </li>
           <li>
-            <button class="btn btn-danger btn-sm">削除</button>
+            <%= link_to(admin_item_path(item), method: :delete, data:{ confirm: '削除してもいいですか？' }) do %>
+              <button class="btn btn-danger btn-sm">削除</button>
+            <% end %>
           </li>
         </ul>
       </div>
