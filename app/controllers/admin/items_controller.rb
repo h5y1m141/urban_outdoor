@@ -27,6 +27,11 @@ class Admin::ItemsController < AdminController
     end
   end
 
+  def destroy
+    @item.destroy
+    redirect_to admin_items_path, notice: "#{@item.name}を削除しました"
+  end
+
   private
   def set_item
     @item = Item.find(params[:id])

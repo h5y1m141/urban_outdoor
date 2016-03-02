@@ -1,13 +1,14 @@
 FactoryGirl.define do
   factory :item do
-    sequence(:title) { |n| "title#{n}" }
+    sequence(:name) { |n| "name#{n}" }
     sequence(:url) { |n| "http://www.example.com/item/#{n}" }
     sequence(:description) {|n| "description#{n}"}
-    stocks { create_list :stock, 5 }
-    reviews { create_list :item_review, 2 }
-    favorites { create_list :item_favorite, 2 }
-    image { Rack::Test::UploadedFile.new(Rails.root.join('app','assets', 'images', 'sample.jpg')) }
-
+    store_id 1
+    brand_id 1
+    thumbnail_id 1
+    stocks { create_list :stock, 2 }
+    tags { create_list :tag, 2 }
+    pictures { create_list :picture, 1 }
     trait :on_sale do
       discounted true
       original_price 10000
