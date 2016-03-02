@@ -16,11 +16,11 @@ class Admin::ItemsController < AdminController
   def update
     thumbnail_id = JSON.parse(params[:thumbnail])['id']
     tag_values = params[:tags].split(",").map{|tag_name| { name: tag_name } }
-    params = {
+    updat_params = {
       thumbnail_id: thumbnail_id,
       tags_attributes: tag_values
     }
-    if @item.update(params)
+    if @item.update(updat_params)
       redirect_to admin_items_path, notice: '更新が完了しました'
     else
       redirect_to edit_admin_article(@item), notice: '更新できません'
