@@ -1,32 +1,33 @@
 <div class='container-fluid'>
-<% @items.each_slice(4) do |column4_items| %>
-  <div class='row'>
-    <% column4_items.each do |item| %>
-      <div class='col-md-3 col-sm-6'>
-        <% if item.thumbnail.present? %>
-          <%= image_tag item.thumbnail.image.large_thumb.url %>
-        <% else %>
-          <%= image_tag item.pictures.first.image.large_thumb.url %>
-        <% end %>
-        <h4><%= item.name %></h4>
-        <ul class='list-unstyled'>
-          <li>ブランド<%= item.brand.name %></li>
-          <li>金額：<%= number_to_currency(item.original_price, locale: 'jp') %></li>
-        </ul>
-        <ul class='list-inline'>
-          <li>
-            <%= link_to(edit_admin_item_path(item)) do %>
-              <button class="btn btn-primary btn-sm">編集</button>
-            <% end %>
-           </li>
-          <li>
-            <%= link_to(admin_item_path(item), method: :delete, data:{ confirm: '削除してもいいですか？' }) do %>
-              <button class="btn btn-danger btn-sm">削除</button>
-            <% end %>
-          </li>
-        </ul>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+  <%= render partial: '/admin/pagenation', locals: {resouces: @items }%>
+  <% @items.each_slice(4) do |column4_items| %>
+    <div class='row'>
+      <% column4_items.each do |item| %>
+        <div class='col-md-3 col-sm-6'>
+          <% if item.thumbnail.present? %>
+            <%= image_tag item.thumbnail.image.large_thumb.url %>
+          <% else %>
+            <%= image_tag item.pictures.first.image.large_thumb.url %>
+          <% end %>
+          <h4><%= item.name %></h4>
+          <ul class='list-unstyled'>
+            <li>ブランド<%= item.brand.name %></li>
+            <li>金額：<%= number_to_currency(item.original_price, locale: 'jp') %></li>
+          </ul>
+          <ul class='list-inline'>
+            <li>
+              <%= link_to(edit_admin_item_path(item)) do %>
+                <button class="btn btn-primary btn-sm">編集</button>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to(admin_item_path(item), method: :delete, data:{ confirm: '削除してもいいですか？' }) do %>
+                <button class="btn btn-danger btn-sm">削除</button>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

@@ -3,8 +3,8 @@ class CoreWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
   sidekiq_options queue: :urban_outdoor, retry: 1
-  recurrence { daily.hour_of_day(3, 6, 9, 12, 15, 18, 21) }
-  # recurrence { hourly }
+  # recurrence { daily.hour_of_day(3, 6, 9, 12, 15, 18, 21) }
+  recurrence { hourly }
 
   def initialize
     @nanga    = Crawler::Nanga.new

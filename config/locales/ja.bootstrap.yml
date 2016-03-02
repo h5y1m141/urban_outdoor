@@ -10,14 +10,21 @@ ja:
   helpers:
     actions: "Actions"
     links:
-      back: "Back"
-      cancel: "Cancel"
-      confirm: "Are you sure?"
-      destroy: "Delete"
-      new: "New"
-      edit: "Edit"
+      back: "戻る"
+      cancel: "cancel"
+      confirm: "本当によろしいですか？"
+      destroy: "削除"
+      new: "新規"
+      edit: "編集"
     titles:
-      edit: "Edit %{model}"
-      save: "Save %{model}"
-      new: "New %{model}"
-      delete: "Delete %{model}"
+      edit: "編集 %{model}"
+      save: "保存 %{model}"
+      new: "新規 %{model}"
+      delete: "削除 %{model}"
+  views:
+    pagination:
+      first: "&laquo; 先頭"
+      last: "最後 &raquo;"
+      next: "次 &rsaquo;"
+      previous: "&lsaquo; 前"
+      truncate: "&hellip;"

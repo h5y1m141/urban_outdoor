@@ -2,7 +2,7 @@ class Admin::ItemsController < AdminController
   before_action :set_item, only: [:edit, :destroy, :update]
   before_action :reset_tags, only: [:update]
   def index
-    @items = Item.includes(:pictures).includes(:brand).order("updated_at DESC").all.page(params[:page])
+    @items = Item.includes(:pictures).includes(:brand).order("updated_at DESC").all.page(params[:page]).per(params[:per_page])
   end
 
   def edit
