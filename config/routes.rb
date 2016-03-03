@@ -14,13 +14,16 @@ Rails.application.routes.draw do
     get :about
   end
   namespace :admin do
-    resources :items, only: [:index, :edit, :update, :destroy]
+    resources :items, only: [:index, :edit, :update, :destroy] do
+      collection do
+        post :search_by_tag
+      end
+    end
     resources :articles do
       collection do
         post :load_elements
       end
     end
-    
   end
   root to: 'static_pages#index'
   get '/articles/preview/:preview_key', to: 'articles#preview'
