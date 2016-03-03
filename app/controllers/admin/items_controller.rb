@@ -1,8 +1,13 @@
 class Admin::ItemsController < AdminController
+  include ItemSearch
   before_action :set_item, only: [:edit, :destroy, :update]
+  before_action :set_brands, only: [:index]
   before_action :reset_tags, only: [:update]
   def index
-    @items = Item.includes(:pictures).includes(:brand).order("updated_at DESC").all.page(params[:page]).per(params[:per_page])
+    @search = Item.includes(:pictures).includes(:brand)
+      .order("updated_at DESC")
+      .ransack(params[:q])
+    @items = @search.result.all.page(params[:page]).per(params[:per_page])
   end
 
   def edit
@@ -33,14 +38,20 @@ class Admin::ItemsController < AdminController
   end
 
   private
+
   def set_item
     @item = Item.find(params[:id])
   end
+
   def item_params
     params.require(:item).permit(:name, :url , :original_price, :discounted, :discount_price, :description, :tags)
   end
 
   def reset_tags
     @item.tags.delete_all
+  end
+
+  def set_brands
+    @brands = Brand.all.pluck(:name,:id)
   end
 end

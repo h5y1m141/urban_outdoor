@@ -6,6 +6,7 @@ gem 'rails', '4.2.0'
 # Middleware
 gem 'unicorn'
 gem 'mysql2', '~> 0.3.20'
+gem 'ransack'
 
 # Scraping
 gem 'rest-client'

@@ -1,0 +1,8 @@
+---
+- name: install MariaDB
+  yum: name={{ item }} state=installed
+  with_items:
+    - mariadb-db
+    - mariadb-libs
+    - mariadb-server
+  tags: mysqld

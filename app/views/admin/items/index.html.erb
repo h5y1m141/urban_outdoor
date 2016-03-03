@@ -1,5 +1,8 @@
 <div class='container-fluid'>
   <%= render partial: '/admin/pagenation', locals: {resouces: @items }%>
+  <div class="row">
+    <%= render partial: '/admin/search_form' %>
+  </div>
   <% @items.each_slice(4) do |column4_items| %>
     <div class='row'>
       <% column4_items.each do |item| %>
