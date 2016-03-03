@@ -1,12 +1,10 @@
 class Admin::ItemsController < AdminController
-  include ItemSearch
+  include ItemSearchModule
   before_action :set_item, only: [:edit, :destroy, :update]
   before_action :set_brands, only: [:index]
   before_action :reset_tags, only: [:update]
   def index
-    @search = Item.includes(:pictures).includes(:brand)
-      .order("updated_at DESC")
-      .ransack(params[:q])
+    @search = search_items_by_parameters(params[:q])
     @items = @search.result.all.page(params[:page]).per(params[:per_page])
   end
 
