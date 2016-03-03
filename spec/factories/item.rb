@@ -19,5 +19,15 @@ FactoryGirl.define do
       discounted false
       original_price 10000
     end
+
+    trait :off_sale do
+      discounted false
+      original_price 10000
+    end
+
+    trait :low_price do
+      discounted false
+      original_price 500
+    end
   end
 end

@@ -1,8 +1,10 @@
 class Admin::ArticlesController < AdminController
+  include ArticleSearchModule
   before_action :set_article, only: [:edit, :destroy, :update, :load_elements]
   
   def index
-    @articles = Article.includes(:pictures).order("updated_at DESC").all.page(params[:page]).per(params[:per_page])
+    @search = search_articles_by_parameters(params[:q])
+    @articles = @search.result.all.page(params[:page]).per(params[:per_page])
   end
 
   def new
