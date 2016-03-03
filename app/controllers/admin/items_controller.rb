@@ -35,6 +35,10 @@ class Admin::ItemsController < AdminController
     redirect_to admin_items_path, notice: "#{@item.name}を削除しました"
   end
 
+  def search_by_tag
+    tags = item_params['tags'].split(",")
+    @items = Item.fetch_by_tags(tags)
+  end
   private
 
   def set_item

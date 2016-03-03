@@ -27,6 +27,11 @@ class Item < ActiveRecord::Base
 
   accepts_nested_attributes_for :stocks
   accepts_nested_attributes_for :tags
+
+  scope :fetch_by_tags, ->(tags) do
+    includes(:tags).where('tags.name': tags )
+  end
+
   def self.create_or_update_by_crawler(params)
     return false unless params[:url] && params[:images] && params[:stocks]
     pictures = self.prepare_pictures(params[:images], params[:url])
