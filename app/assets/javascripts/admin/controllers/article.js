@@ -9,6 +9,7 @@ angular.module('UrbanOutdoorApp')
       { title: '画像登録'}
     ];
     $scope.selectedTab = 0;
+    $scope.selectedItems = [];
     $scope.selectTab = function(index){
       $scope.selectedTab = index;
     };
@@ -27,17 +28,11 @@ angular.module('UrbanOutdoorApp')
         tag_name: 'instagram',
         element_data: $scope.instagram
       });
-    },
-    $scope.loadElements = function(article){
-      var query,
-          elements;
-      $scope.mainTitle = article.title;
-      query = Article.loadElements({id: article.id});
-      query.$promise.then(function(response){
-        angular.forEach(response.elements,function(element, key) {
-          $scope.contentsArea.push(element);
-        });        
+    };
+    $scope.selectItem = function(item){
+      $scope.contentsArea.push({
+        tag_name: 'item',
+        element_data: item
       });
     };
   }]);
-
