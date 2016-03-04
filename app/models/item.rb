@@ -34,7 +34,6 @@ class Item < ActiveRecord::Base
 
   scope :fetch_by_brand, ->(brand_name) do
     where(brand_id: Brand.where(name: brand_name).pluck(:id) )
-    # includes(:brand).where('brand.name': brand_name )
   end
 
   def self.create_or_update_by_crawler(params)
@@ -49,7 +48,7 @@ class Item < ActiveRecord::Base
     unless item.new_record?
       # 在庫のIDがパラメーターに含まれないため純粋な更新処理が出来ないので
       # 一度在庫を削除してから再度在庫を登録
-      item.stocks.each{|stock| stock.destroy }
+      item.stocks.delete_all
       item.update(params)
     end
   end

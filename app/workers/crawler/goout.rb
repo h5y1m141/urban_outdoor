@@ -61,7 +61,7 @@ class Crawler::Goout < Crawler::Base
     store_id = (Store.where(url: "#{@base_url}/").present?) ? Store.where(url: "#{@base_url}/").first.id : nil
     prices = fetch_price(page)
     brand_name = page.xpath('//div[@class="brand"]').text
-    brand = (Brand.where(name: brand_name).present?) ? Brand.where(name: brand_name).first : nil
+    brand = Brand.find_or_create_by(name: brand_name)
     stocks = fetch_stocks(page)
     {
       name: name,
