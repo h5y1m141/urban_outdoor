@@ -35,6 +35,16 @@ class Admin::ItemsController < AdminController
     redirect_to admin_items_path, notice: "#{@item.name}を削除しました"
   end
 
+  def search_by_tag
+    tags = item_params['tags'].split(",")
+    @items = Item.fetch_by_tags(tags)
+  end
+
+  def search_by_brand
+    brand_name = item_params['brand']
+    @items = Item.fetch_by_brand(brand_name)
+    render action: :search_by_tag
+  end
   private
 
   def set_item
@@ -42,7 +52,7 @@ class Admin::ItemsController < AdminController
   end
 
   def item_params
-    params.require(:item).permit(:name, :url , :original_price, :discounted, :discount_price, :description, :tags)
+    params.require(:item).permit(:name, :url , :original_price, :discounted, :discount_price, :description, :tags, :brand)
   end
 
   def reset_tags
