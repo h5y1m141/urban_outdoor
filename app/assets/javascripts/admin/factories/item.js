@@ -11,6 +11,13 @@ angular.module('UrbanOutdoorApp')
         params: {
           item: '@value'
         }
+      },
+      search_by_brand: {
+        method: 'POST',
+        url: '/admin/items/search_by_brand.json',
+        params: {
+          item: '@value'
+        }
       }
     });
   }]);

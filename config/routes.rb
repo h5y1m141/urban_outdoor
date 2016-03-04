@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :edit, :update, :destroy] do
       collection do
         post :search_by_tag
+        post :search_by_brand
       end
     end
     resources :articles do

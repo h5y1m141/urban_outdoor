@@ -32,6 +32,11 @@ class Item < ActiveRecord::Base
     includes(:tags).where('tags.name': tags )
   end
 
+  scope :fetch_by_brand, ->(brand_name) do
+    where(brand_id: Brand.where(name: brand_name).pluck(:id) )
+    # includes(:brand).where('brand.name': brand_name )
+  end
+
   def self.create_or_update_by_crawler(params)
     return false unless params[:url] && params[:images] && params[:stocks]
     pictures = self.prepare_pictures(params[:images], params[:url])

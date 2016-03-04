@@ -6,6 +6,8 @@ angular.module('UrbanOutdoorApp')
     $scope.tabs = [
       { title: '記事の基本情報'},
       { title: '文章登録'},
+      { title: 'アイテム登録'},
+      { title: 'Instagram登録'},
       { title: '画像登録'}
     ];
     $scope.selectedTab = 0;
