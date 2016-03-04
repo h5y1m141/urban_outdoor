@@ -75,8 +75,10 @@ class Item < ActiveRecord::Base
     # 1.パラメーターのimagesというkeyは存在しないためpicturesにリネーム
     # 2.Active Record Nested Attributesを利用するためにstocksのキーの名前を変更する
     params[:stocks_attributes] = params[:stocks]
+    params[:tags_attributes] = params[:tags]
     params.delete :images
     params.delete :stocks
+    params.delete :tags
     params.merge({
       discounted: (params[:discounted] == "" || params[:discounted] == 0) ? false : true,
     })

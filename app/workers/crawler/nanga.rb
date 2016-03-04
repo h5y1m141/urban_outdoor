@@ -35,6 +35,7 @@ class Crawler::Nanga < Crawler::Base
     store_id = (Store.where(url: "#{@base_url}/").present?) ? Store.where(url: "#{@base_url}/").first.id : nil
     brand = (Brand.where(name: 'NANGA').present?) ? Brand.where(name: 'NANGA').first : nil
     stocks = []
+    tags = []
     {
       name: name,
       images: images,
@@ -45,7 +46,8 @@ class Crawler::Nanga < Crawler::Base
       discounted: discounted,
       store_id: store_id,
       brand_id: (brand.present?) ? brand.id : nil,
-      stocks: stocks
+      stocks: stocks,
+      tags: tags
     }
   end
 

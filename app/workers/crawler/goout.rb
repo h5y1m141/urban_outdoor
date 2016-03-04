@@ -63,6 +63,8 @@ class Crawler::Goout < Crawler::Base
     brand_name = page.xpath('//div[@class="brand"]').text
     brand = Brand.find_or_create_by(name: brand_name)
     stocks = fetch_stocks(page)
+    tags = fetch_tags(page)
+
     {
       name: name,
       images: images,
@@ -73,7 +75,8 @@ class Crawler::Goout < Crawler::Base
       discounted: prices[:discounted],
       store_id: store_id,
       brand_id: (brand.present?) ? brand.id : nil,
-      stocks: stocks
+      stocks: stocks,
+      tags: tags
     }
   end
   def fetch_stocks(page)
@@ -104,5 +107,12 @@ class Crawler::Goout < Crawler::Base
       discount_price: discount_price,
       discounted: discounted
     }
+  end
+
+  def fetch_tags(page)
+    categories = page.xpath('//section[@id="relatedCategroySect"]/ul/li/span/a').map do |node|
+      {name: node.text}
+    end
+    return categories.select{|tag| tag unless tag[:name]== 'ファッション'}
   end
 end
