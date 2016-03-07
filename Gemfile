@@ -7,6 +7,8 @@ gem 'rails', '4.2.0'
 gem 'unicorn'
 gem 'mysql2', '~> 0.3.20'
 gem 'ransack'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 # Scraping
 gem 'rest-client'
