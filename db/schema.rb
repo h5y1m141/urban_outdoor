@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301080847) do
+ActiveRecord::Schema.define(version: 20160308064152) do
 
   create_table "article_elements", force: :cascade do |t|
     t.string   "tag_name",     limit: 255
@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(version: 20160301080847) do
     t.text     "comment",       limit: 65535
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "item_tag_relays", force: :cascade do |t|
+    t.integer  "item_id",    limit: 4
+    t.integer  "tag_id",     limit: 4
+    t.integer  "score",      limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "items", force: :cascade do |t|
