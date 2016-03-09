@@ -46,9 +46,9 @@ class Item < ActiveRecord::Base
       item.tap(&:save)
     end
 
+    # 在庫のIDがパラメーターに含まれないため純粋な更新処理が出来ないので
+    # 一度在庫を削除してから再度在庫を登録
     unless item.new_record?
-      # 在庫のIDがパラメーターに含まれないため純粋な更新処理が出来ないので
-      # 一度在庫を削除してから再度在庫を登録
       item.stocks.delete_all
       item.update(params)
     end
@@ -72,9 +72,8 @@ class Item < ActiveRecord::Base
     result
   end
 
+  # Active Record Nested Attributesを利用するために一部キーを変更
   def self.revised_parameter(params)
-    # 1.パラメーターのimagesというkeyは存在しないためpicturesにリネーム
-    # 2.Active Record Nested Attributesを利用するためにstocksのキーの名前を変更する
     params[:stocks_attributes] = params[:stocks]
     params[:tags_attributes] = params[:tags]
     params.delete :images
