@@ -6,6 +6,7 @@ class Crawler::Goout < Crawler::Base
     super
     @base_url = "http://www.goout.jp"
     @target_brands = [
+      'Clef',
       'CHUMS',
       'inhabitant'
     ]
