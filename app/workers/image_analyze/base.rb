@@ -7,12 +7,12 @@ require 'kmeans/dendrogram'
 class ImageAnalyze::Base < ApplicationController
   include OpenCV
 
-  def initialize(target)
+  def initialize
     @base_directory = Rails.root.join('app', 'assets', 'images',@target[:english_name]).to_s
     @base_file = "#{@base_directory}/base.jpg"
     @result = []
     @threshold = 0.6
-    @tag_name = target[:tag_name]
+    @assign_tag = @target[:assign_tag]
     init_cv_histogram
   end
   
@@ -20,12 +20,14 @@ class ImageAnalyze::Base < ApplicationController
     base = @hist.calc_hist([@gray])
     unless @items.empty?
       @items.each_with_index do |item, index|
-      image_path = "#{Rails.root.join}/public#{item.thumbnail.image.small_thumb.url}"
-      iplimg1 =  IplImage.load(image_path)
-      target = iplimg1.BGR2GRAY
-      h2 = @hist.calc_hist([target])
-      distance = OpenCV::CvHistogram.compare_hist(base, h2, 0)
-      @result.push(item) if distance > @threshold
+        unless item.thumbnail.nil?
+          image_path = "#{Rails.root.join}/public#{item.thumbnail.image.small_thumb.url}"
+          iplimg1 =  IplImage.load(image_path)
+          target = iplimg1.BGR2GRAY
+          h2 = @hist.calc_hist([target])
+          distance = OpenCV::CvHistogram.compare_hist(base, h2, 0)
+          @result.push(item) if distance > @threshold
+        end
       end
     end
   end
@@ -36,8 +38,8 @@ class ImageAnalyze::Base < ApplicationController
   def update_item_with_tag
     @result.each do|item|
       tags = item.tags.pluck(:name)
-      unless tags.include?(@tag_name)
-        tag = Tag.find_or_create_by(name: @tag_name)
+      unless tags.include?(@assign_tag)
+        tag = Tag.find_or_create_by(name: @assign_tag)
         item.tags.push(tag)
         item.save
       end
