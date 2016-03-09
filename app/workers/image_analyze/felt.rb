@@ -4,11 +4,12 @@ class ImageAnalyze::Felt < ImageAnalyze::Base
       english_name: 'felt',
       assign_tag: 'フェルト'
     }
-    @items = Item.fetch_by_tags('帽子')
+    # @items = Item.fetch_by_tags('帽子')
+    @items = Item.all
     super
   end
 
-  def run
+  def calcurate_similarity
     super
   end
 

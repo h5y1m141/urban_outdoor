@@ -8,7 +8,7 @@ class ImageAnalyze::BorderPrint < ImageAnalyze::Base
     super
   end
 
-  def run
+  def calcurate_similarity
     super
   end
 

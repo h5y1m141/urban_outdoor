@@ -7,12 +7,12 @@ require 'kmeans/dendrogram'
 class ImageAnalyze::Base < ApplicationController
   include OpenCV
 
-  def initialize(target)
+  def initialize
     @base_directory = Rails.root.join('app', 'assets', 'images',@target[:english_name]).to_s
     @base_file = "#{@base_directory}/base.jpg"
     @result = []
     @threshold = 0.6
-    @assign_tag = target[:assign_tag]
+    @assign_tag = @target[:assign_tag]
     init_cv_histogram
   end
   
@@ -20,12 +20,14 @@ class ImageAnalyze::Base < ApplicationController
     base = @hist.calc_hist([@gray])
     unless @items.empty?
       @items.each_with_index do |item, index|
-      image_path = "#{Rails.root.join}/public#{item.thumbnail.image.small_thumb.url}"
-      iplimg1 =  IplImage.load(image_path)
-      target = iplimg1.BGR2GRAY
-      h2 = @hist.calc_hist([target])
-      distance = OpenCV::CvHistogram.compare_hist(base, h2, 0)
-      @result.push(item) if distance > @threshold
+        unless item.thumbnail.nil?
+          image_path = "#{Rails.root.join}/public#{item.thumbnail.image.small_thumb.url}"
+          iplimg1 =  IplImage.load(image_path)
+          target = iplimg1.BGR2GRAY
+          h2 = @hist.calc_hist([target])
+          distance = OpenCV::CvHistogram.compare_hist(base, h2, 0)
+          @result.push(item) if distance > @threshold
+        end
       end
     end
   end
