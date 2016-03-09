@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308064152) do
+ActiveRecord::Schema.define(version: 20160309052905) do
 
   create_table "article_elements", force: :cascade do |t|
     t.string   "tag_name",     limit: 255
@@ -136,12 +136,9 @@ ActiveRecord::Schema.define(version: 20160308064152) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.integer  "item_id",    limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
-
-  add_index "tags", ["item_id"], name: "index_tags_on_item_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -164,5 +161,4 @@ ActiveRecord::Schema.define(version: 20160308064152) do
   add_foreign_key "article_elements", "articles"
   add_foreign_key "pictures", "items"
   add_foreign_key "stocks", "items"
-  add_foreign_key "tags", "items"
 end
