@@ -16,7 +16,7 @@ describe Admin::ArticlesController, type: :controller do
       end
       it '検索結果が得られる' do
         request_without_parameter
-        expect(assigns(:search).result).to eq articles
+        expect(assigns(:search).result.count).to eq articles.count
       end
     end
     context '検索パラメータに条件を指定した場合' do
