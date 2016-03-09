@@ -12,7 +12,7 @@ class ImageAnalyze::Base < ApplicationController
     @base_file = "#{@base_directory}/base.jpg"
     @result = []
     @threshold = 0.6
-    @tag_name = target[:tag_name]
+    @assign_tag = target[:assign_tag]
     init_cv_histogram
   end
   
@@ -36,8 +36,8 @@ class ImageAnalyze::Base < ApplicationController
   def update_item_with_tag
     @result.each do|item|
       tags = item.tags.pluck(:name)
-      unless tags.include?(@tag_name)
-        tag = Tag.find_or_create_by(name: @tag_name)
+      unless tags.include?(@assign_tag)
+        tag = Tag.find_or_create_by(name: @assign_tag)
         item.tags.push(tag)
         item.save
       end

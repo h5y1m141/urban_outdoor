@@ -1,8 +1,8 @@
-class ImageAnalyze::Cap < ImageAnalyze::Base
+class ImageAnalyze::BorderPrint < ImageAnalyze::Base
   def initialize
     @target = target = {
-      english_name: 'cap',
-      assign_tag:'帽子'
+      english_name: 'border_print',
+      assign_tag: '横ボーダー'
     }
     @items = Item.fetch_by_tags('帽子')
     super

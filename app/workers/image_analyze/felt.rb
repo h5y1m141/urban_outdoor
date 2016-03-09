@@ -1,8 +1,8 @@
-class ImageAnalyze::Cap < ImageAnalyze::Base
+class ImageAnalyze::Felt < ImageAnalyze::Base
   def initialize
     @target = target = {
-      english_name: 'cap',
-      assign_tag:'帽子'
+      english_name: 'felt',
+      assign_tag: 'フェルト'
     }
     @items = Item.fetch_by_tags('帽子')
     super
