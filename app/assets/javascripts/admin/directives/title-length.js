@@ -26,12 +26,5 @@ angular.module('UrbanOutdoorApp')
           });
         };
       }
-        // console.log($scope.title);
-        // if($scope.title) {
-        //   console.log($scope.title);
-        //   var template = selectTemplate($scope.title);
-        //   element.html(template);
-        //   $compile(element.contents())($scope);
-        // }
     };
   }]);
