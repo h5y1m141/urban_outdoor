@@ -37,4 +37,15 @@ angular.module('UrbanOutdoorApp')
         element_data: item
       });
     };
+    $scope.init = function(json){
+      var query,
+          article = JSON.parse(json);
+      $scope.mainTitle = article.title;
+      query = Article.loadElements({id: article.id });
+      query.$promise.then(function(response){
+        angular.forEach(response.elements,function(element){
+          $scope.contentsArea.push(element);
+        });
+      });
+    };
   }]);

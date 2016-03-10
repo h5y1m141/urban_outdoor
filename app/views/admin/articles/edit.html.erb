@@ -1,11 +1,15 @@
-<section class='article__main' ng-controller='ArticleCtrl'>
+<section class='article__main' ng-controller='ArticleCtrl' ng-init="init('<%= @article.to_json %>')">
   <script defer="defer" src="//platform.instagram.com/en_US/embeds.js"></script>
   <section class="wrapper">
     <div class="row">
       <div class="col-sm-12 article__contents__menu">
         <div class="pull-right">
           <ul class="list-inline">
-            <li><button class="btn-info">ここはステータスによって表示が変わる</button></li>
+            <% if @article.draft? %>
+              <li><button class="btn-info" ng-click="saveArticle()">公開保存</button></li>
+            <% else %>
+              <li><button class="btn-info" ng-click="saveArticle()">下書き保存</button></li>
+            <% end %>
           </ul>
         </div>
         <div>
@@ -20,6 +24,8 @@
         <div class="tab-content">
           <%= render partial: "required_element" %>
           <%= render partial: "input_text" %>
+          <%= render partial: "input_item" %>
+          <%= render partial: "input_instagram" %>
           <%= render partial: "input_image" %>
         </div>
       </div>

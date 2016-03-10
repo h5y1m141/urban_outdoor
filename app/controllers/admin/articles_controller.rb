@@ -24,6 +24,11 @@ class Admin::ArticlesController < AdminController
   end
 
   def load_elements
+    if (@article)
+      @article
+    else
+      render json: {}, status: 400
+    end
   end
 
   private
