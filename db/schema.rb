@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309052905) do
+ActiveRecord::Schema.define(version: 20160311043941) do
 
   create_table "article_elements", force: :cascade do |t|
     t.string   "tag_name",     limit: 255
@@ -19,9 +19,11 @@ ActiveRecord::Schema.define(version: 20160309052905) do
     t.integer  "article_id",   limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "sory_key",     limit: 4
   end
 
   add_index "article_elements", ["article_id"], name: "index_article_elements_on_article_id", using: :btree
+  add_index "article_elements", ["sory_key"], name: "index_article_elements_on_sory_key", using: :btree
 
   create_table "article_item_relays", force: :cascade do |t|
     t.integer  "item_id",    limit: 4
