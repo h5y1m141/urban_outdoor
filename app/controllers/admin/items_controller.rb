@@ -26,7 +26,7 @@ class Admin::ItemsController < AdminController
     if @item.update(updat_params)
       redirect_to admin_items_path, notice: '更新が完了しました'
     else
-      redirect_to edit_admin_article(@item), notice: '更新できません'
+      redirect_to edit_admin_item(@item), notice: '更新できません'
     end
   end
 
