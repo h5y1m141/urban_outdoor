@@ -9,4 +9,5 @@
     rbenv_bin: /home/vagrant/.rbenv/libexec/rbenv
   roles:
     - common
+    # - mariadb
     - mysql
