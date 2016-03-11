@@ -41,6 +41,8 @@ gem 'seed-fu', '~> 2.3'
 gem 'devise', '~> 3.5'
 gem 'ruby-opencv'
 gem 'kmeans'
+gem 'sitemap_generator'
+
 
 group :development do
   gem 'annotate'
