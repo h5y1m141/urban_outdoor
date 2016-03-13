@@ -7,7 +7,9 @@
     ruby_version: 2.2.2
     rbenv_root: /home/vagrant/.rbenv
     rbenv_bin: /home/vagrant/.rbenv/libexec/rbenv
+    group: ops
+    user: ops
   roles:
     - common
-    # - mariadb
     - mysql
+    - deploy_user
