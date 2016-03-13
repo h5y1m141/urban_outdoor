@@ -1,7 +1,5 @@
 ---
 # package installation
-- name: yum update
-  yum: name=* state=latest
 - name: install basic packages
   yum: name={{ item }} state=installed
   with_items:
